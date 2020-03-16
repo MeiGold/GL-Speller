@@ -18,9 +18,10 @@
 
 // variable defining path to texts to be checked
 static const std::string dictionaryPath = "../dictionary.txt";
+static const char *absolutePathToOutputs = R"(C:\Users\golde\CLionProjects\GL basecamp\Speller\outputs\)";
 static const char *absolutePathToTexts = R"(C:\Users\golde\CLionProjects\GL basecamp\Speller\texts\)";
 
-void checkFiles(const std::vector<std::string> &files, checker* checker);
+void checkFiles(const std::vector<std::string> &files, checker* checker,const std::string &output);
 
 int main() {
     std::vector<std::string> files;
@@ -40,32 +41,55 @@ int main() {
         return EXIT_FAILURE;
     }
     std::cout<<"Speller-----------------------------"<<std::endl;
+    checker *checker1;
+
+   /* vectorChecker vc;
+    std::ifstream in("C:\\Users\\golde\\CLionProjects\\GL basecamp\\Speller\\outputs\\unorderedHashMap\\alice.txt");
+    checker1 = new binaryTreeChecker();
+    std::stringstream stream;
+    stream<<in.rdbuf();
+    std::string s;
+    while(stream>>s){
+        checker1->add(s);
+    }
+    std::ifstream iin("C:\\Users\\golde\\CLionProjects\\GL basecamp\\Speller\\outputs\\trie\\alice.txt");
+    //checker2 = new unorderedMapChecker();
+    std::stringstream sstream;
+    sstream<<iin.rdbuf();
+    std::string ss;
+    while(sstream>>ss){
+        if(!checker1->check(ss)){
+            std::cout<<ss<<std::endl;
+        }
+    }*/
+
     checker *checker;
 
     checker = new vectorChecker();
     std::cout<<"stdvector ";
-    checkFiles(files,checker);
+    checkFiles(files,checker,  std::string(absolutePathToOutputs) + "stdvector\\");
 
     checker = new binaryTreeChecker();
     std::cout<<"BST ";
-    checkFiles(files,checker);
+    checkFiles(files,checker, std::string(absolutePathToOutputs) + "BST\\");
 
     checker = new hashTableChecker(2000000);
     std::cout<<"hashTable ";
-    checkFiles(files,checker);
+    checkFiles(files,checker,std::string(absolutePathToOutputs) + "hashTable\\");
 
     checker = new unorderedMapChecker();
     std::cout<<"unorderedHashMap ";
-    checkFiles(files,checker);
+    checkFiles(files,checker,std::string(absolutePathToOutputs) + "unorderedHashMap\\");
 
     checker = new trieChecker();
     std::cout<<"trie ";
-    checkFiles(files,checker);
+    checkFiles(files,checker,std::string(absolutePathToOutputs) + "trie\\");
+
 
     return 0;
 }
 
-void checkFiles(const std::vector<std::string> &files, checker * const checker){
+void checkFiles(const std::vector<std::string> &files, checker * const checker,const std::string &output){
     auto start = std::chrono::steady_clock::now();
     checker->createDictionary(dictionaryPath);
     auto end = std::chrono::steady_clock::now();
@@ -77,6 +101,7 @@ void checkFiles(const std::vector<std::string> &files, checker * const checker){
     int wrongWords = 0;
     for (const auto &file : files) {
         std::ifstream in(absolutePathToTexts + file);
+        std::ofstream of(output + file);
         if (!in.is_open()) {
             std::cout << "Failed to open file: !" << absolutePathToTexts + file << std::endl;
         } else {
@@ -87,8 +112,14 @@ void checkFiles(const std::vector<std::string> &files, checker * const checker){
                 tempoWord = checker::checkWord(tempoWord);
                 if (!tempoWord.empty()) {
                     checkedWords++;
-                    if (!checker->check(tempoWord))
+                    if(tempoWord=="can'container"){
+                        bool is = checker->check(tempoWord);
+                        int h =5;
+                    }
+                    if (!checker->check(tempoWord)){
                         wrongWords++;
+                        of << tempoWord << '\n';
+                    }
                 }
             }
         }
