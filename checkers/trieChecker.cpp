@@ -25,6 +25,10 @@ void trieChecker::createDictionary(std::string filename) {
         std::string tempoWord;
         while (buffer >> tempoWord) {
             tempoWord = checkWord(tempoWord);
+            if (tempoWord == "they'll") {
+                container.insert(tempoWord);
+                bool is = container.find(tempoWord);
+            }
             if (!tempoWord.empty())container.insert(tempoWord);
         }
     }

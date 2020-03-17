@@ -13,8 +13,11 @@ private:
 public:
     T value;
     ChainNode<T> *next;
-    ChainNode():value(nullptr),next(nullptr){};
+
+    ChainNode() : value(nullptr), next(nullptr) {};
+
     ChainNode(T val) : value(val), next(nullptr) {};
+
     ChainNode(T val, ChainNode<T> *next) : value(val), next(next) {};
 };
 
@@ -24,13 +27,18 @@ class MurmurHash2 {
 private:
     int numberOfChains;
     ChainNode<T> **chains;
+
     unsigned int hashFunction(std::string element, unsigned int length);
 
 public:
     MurmurHash2(int elementsCount);
+
     ~MurmurHash2();
+
     void insertElement(T element, unsigned int length);
+
     bool checkElement(T element, unsigned int length);
+
     int getMaxCollisions();
 };
 

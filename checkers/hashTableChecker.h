@@ -13,12 +13,15 @@ private:
     MurmurHash2<std::string> *container;
 public:
     hashTableChecker(int size);
+
     ~hashTableChecker() = default;
+
     void add(std::string element) override;
+
     bool check(std::string element) override;
+
     void createDictionary(std::string filename) override;
 };
-
 
 
 #endif //SPELLER_HASHTABLECHECKER_H

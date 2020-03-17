@@ -11,14 +11,18 @@
 #include <functional>
 #include "checker.h"
 
-class unorderedMapChecker : public checker{
+class unorderedMapChecker : public checker {
 private:
     std::unordered_map<std::string, std::string> container;
 public:
     unorderedMapChecker() = default;
+
     ~unorderedMapChecker() = default;
+
     void add(std::string element) override;
+
     bool check(std::string element) override;
+
     void createDictionary(std::string filename) override;
 };
 

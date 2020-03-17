@@ -14,21 +14,31 @@ class TrieNode {
 private:
 public:
     bool isComplete;
+
     class TrieNode *children[alphabet]{};
-    TrieNode():isComplete(false){};
+
+    TrieNode() : isComplete(false) {};
 };
 
 class trie {
 private:
     TrieNode *root;
-    static void printNode(const TrieNode *node, std::vector<char>* tempoWord = {});
+
+    static void printNode(const TrieNode *node, std::vector<char> *tempoWord = {});
+
 public:
     trie();
+
     ~trie();
+
     TrieNode *getRoot();
+
     void insert(const std::string &element);
+
     bool find(const std::string &element);
+
     void erase(std::string element);
+
     void print();
 };
 

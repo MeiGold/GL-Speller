@@ -15,9 +15,13 @@ private:
     std::vector<std::string> container;
 public:
     vectorChecker() = default;
+
     ~vectorChecker() = default;
+
     void add(std::string element) override;
+
     bool check(std::string element) override;
+
     void createDictionary(std::string filename) override;
 
 };

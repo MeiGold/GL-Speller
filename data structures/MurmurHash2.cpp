@@ -93,6 +93,6 @@ int MurmurHash2<T>::getMaxCollisions() {
 
 template<class T>
 MurmurHash2<T>::~MurmurHash2() {
-    delete []chains;
+    delete[]chains;
 }
 

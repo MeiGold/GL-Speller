@@ -8,7 +8,7 @@
 #include "hashTableChecker.h"
 
 hashTableChecker::hashTableChecker(int size) {
-    container = new MurmurHash2<std::string> (size);
+    container = new MurmurHash2<std::string>(size);
 }
 
 void hashTableChecker::add(std::string element) {
@@ -29,7 +29,7 @@ void hashTableChecker::createDictionary(std::string filename) {
         std::string tempoWord;
         while (buffer >> tempoWord) {
             tempoWord = checkWord(tempoWord);
-            if (!tempoWord.empty())container->insertElement(tempoWord,tempoWord.length());
+            if (!tempoWord.empty())container->insertElement(tempoWord, tempoWord.length());
         }
     }
 }

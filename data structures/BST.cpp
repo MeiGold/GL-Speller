@@ -18,6 +18,7 @@ BST<T>::~BST() {
 
 template<class T>
 void BST<T>::addInTree(Node<T> *node, T value) {
+
     if (node->value == value) {
         return;
     }
@@ -90,6 +91,7 @@ bool BST<T>::findInTree(Node<T> *node, T value) {
             } else break;
         }
     }
+
     return node->value == value;
 }
 

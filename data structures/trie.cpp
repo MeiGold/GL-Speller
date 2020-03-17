@@ -13,13 +13,13 @@ TrieNode *trie::getRoot() {
 void trie::insert(const std::string &element) {
     TrieNode *current = root;
     for (const char &e : element
-    ) {
+            ) {
         if (e == '\'') {
             if (current->children[26] == nullptr) {
                 current->children[26] = new TrieNode();
-                current = current->children[26];
-                continue;
             }
+            current = current->children[26];
+            continue;
         }
         if (current->children[e - 'a'] == nullptr) {
             current->children[e - 'a'] = new TrieNode();
