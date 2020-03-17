@@ -13,10 +13,10 @@
 #include <unorderedMapChecker.h>
 #include <trieChecker.h>
 
-// variable defining path to texts to be checked
+// variables for dictionary, input and output
 static const char *dictionaryPath = "../dictionary.txt";
-static const char *absolutePathToOutputs = R"(C:\Users\golde\CLionProjects\GL basecamp\Speller\outputs\)";
-static const char *absolutePathToTexts = R"(C:\Users\golde\CLionProjects\GL basecamp\Speller\texts\)";
+static const char *absolutePathToOutputs = "../outputs/";
+static const char *absolutePathToTexts = "../texts/";
 
 void checkFiles(const std::vector<std::string> &files, checker *checker, const std::string &output);
 
