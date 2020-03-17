@@ -6,6 +6,7 @@
 #include <dirent.h>
 #include <sstream>
 #include <chrono>
+
 #include "checker.h"
 #include <vectorChecker.h>
 #include <binaryTreeChecker.h>
@@ -13,10 +14,12 @@
 #include <unorderedMapChecker.h>
 #include <trieChecker.h>
 
-// variables for dictionary, input and output
-static const char *dictionaryPath = "../dictionary.txt";
-static const char *absolutePathToOutputs = "../outputs/";
-static const char *absolutePathToTexts = "../texts/";
+namespace {
+    // variables for dictionary, input and output
+    const char *dictionaryPath = "../dictionary.txt";
+    const char *absolutePathToOutputs = "../outputs/";
+    const char *absolutePathToTexts = "../texts/";
+}
 
 void checkFiles(const std::vector<std::string> &files, checker *checker, const std::string &output);
 
@@ -27,7 +30,6 @@ int main() {
     if ((dir = opendir(absolutePathToTexts)) != nullptr) {
         /* print all the files and directories within directory */
         while ((ent = readdir(dir)) != nullptr) {
-            //printf("%s\n", ent->d_name);
             if (strncmp(ent->d_name, ".", 2) != 0 && strncmp(ent->d_name, "..", 3) != 0)
                 files.emplace_back(ent->d_name);
         }
