@@ -5,9 +5,13 @@
 #include "MurmurHash2.h"
 
 
+namespace {
+    int chainsDivider = 5;
+}
+
 template<class T>
 MurmurHash2<T>::MurmurHash2(int elementsCount) {
-    numberOfChains = elementsCount / 5; // optimal number of chains
+    numberOfChains = elementsCount / chainsDivider; // optimal number of chains
     chains = new ChainNode<T> *[numberOfChains];
     for (int i = 0; i < numberOfChains; ++i) {
         chains[i] = new ChainNode<T>(nullptr);
@@ -77,7 +81,7 @@ bool MurmurHash2<T>::checkElement(T element, unsigned int length) {
 }
 
 template<class T>
-int MurmurHash2<T>::getMaxCollisions() {
+unsigned int MurmurHash2<T>::getMaxCollisions() {
     unsigned int max = 0;
     for (int i = 0; i < numberOfChains; ++i) {
         if (chains[i]) {

@@ -39,7 +39,7 @@ public:
 
     bool checkElement(T element, unsigned int length);
 
-    int getMaxCollisions();
+    unsigned int getMaxCollisions();
 };
 
 
