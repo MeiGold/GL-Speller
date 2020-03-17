@@ -32,7 +32,6 @@ void trie::insert(const std::string &element) {
 }
 
 bool trie::find(const std::string &element) {
-    //std::cout<<element<<std::endl;
     TrieNode *current = root;
     for (const char &e : element) {
         if (e == '\'') {

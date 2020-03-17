@@ -9,6 +9,9 @@ template<class T>
 MurmurHash2<T>::MurmurHash2(int elementsCount) {
     numberOfChains = elementsCount / 5; // optimal number of chains
     chains = new ChainNode<T> *[numberOfChains];
+    for (int i = 0; i < numberOfChains; ++i) {
+        chains[i] = new ChainNode<T>(nullptr);
+    }
 }
 
 template<class T>
@@ -20,8 +23,7 @@ unsigned int MurmurHash2<T>::hashFunction(std::string element, unsigned int leng
 
     unsigned int h = seed ^length;
 
-    //const auto *data = (const unsigned char *) element;
-    const unsigned char *data = reinterpret_cast<const unsigned char *> (element.c_str());
+    const auto *data = reinterpret_cast<const unsigned char *> (element.c_str());
     unsigned int k;
 
     while (length >= 4) {
@@ -67,9 +69,10 @@ void MurmurHash2<T>::insertElement(T element, unsigned int length) {
 template<class T>
 bool MurmurHash2<T>::checkElement(T element, unsigned int length) {
     int index = hashFunction(element, length);
-    for (ChainNode<T> *x = chains[index]; x != nullptr; x = x->next) {
-        if (x->value == element) return true;
-    }
+    if (chains[index])
+        for (ChainNode<T> *x = chains[index]; x != nullptr; x = x->next) {
+            if (x->value == element) return true;
+        }
     return false;
 }
 

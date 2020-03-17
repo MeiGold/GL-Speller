@@ -9,12 +9,10 @@
 #include <chrono>
 #include "binaryTreeChecker.h"
 
-using string = std::string;
 
 void binaryTreeChecker::add(std::string element) {
     container.add(element);
 }
-
 
 bool binaryTreeChecker::check(std::string element) {
     return container.find(element);

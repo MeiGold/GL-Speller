@@ -13,8 +13,8 @@ void vectorChecker::add(std::string element) {
 }
 
 bool vectorChecker::check(std::string elem) {
-    int left = 0, right = container.size() - 1;
-    int index = 0;
+    size_t left = 0, right = container.size() - 1;
+    size_t index = 0;
     while (left != right && left < right) {
         index = (left + right) / 2;
         if (container[index] == elem)return true;

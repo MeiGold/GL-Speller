@@ -2,12 +2,12 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <algorithm>
 #include <dirent.h>
 #include <sstream>
 #include <chrono>
+#include <cstring>
 
-#include "checker.h"
+#include <checker.h>
 #include <vectorChecker.h>
 #include <binaryTreeChecker.h>
 #include <hashTableChecker.h>
@@ -41,27 +41,26 @@ int main() {
     }
     std::cout << "------------------------Speller------------------------" << std::endl;
 
-    checker *checker;
-
-    checker = new vectorChecker();
+    checker *c;
+    c = new vectorChecker();
     std::cout << "stdvector ";
-    checkFiles(files, checker, std::string(absolutePathToOutputs) + "stdvector\\");
+    checkFiles(files, c, std::string(absolutePathToOutputs) + "stdvector\\");
 
-    checker = new binaryTreeChecker();
+    c = new binaryTreeChecker();
     std::cout << "BST ";
-    checkFiles(files, checker, std::string(absolutePathToOutputs) + "BST\\");
+    checkFiles(files, c, std::string(absolutePathToOutputs) + "BST\\");
 
-    checker = new hashTableChecker(2000000);
+    c = new hashTableChecker(2000000);
     std::cout << "hashTable ";
-    checkFiles(files, checker, std::string(absolutePathToOutputs) + "hashTable\\");
+    checkFiles(files, c, std::string(absolutePathToOutputs) + "hashTable\\");
 
-    checker = new unorderedMapChecker();
+    c = new unorderedMapChecker();
     std::cout << "unorderedHashMap ";
-    checkFiles(files, checker, std::string(absolutePathToOutputs) + "unorderedHashMap\\");
+    checkFiles(files, c, std::string(absolutePathToOutputs) + "unorderedHashMap\\");
 
-    checker = new trieChecker();
+    c = new trieChecker();
     std::cout << "trie ";
-    checkFiles(files, checker, std::string(absolutePathToOutputs) + "trie\\");
+    checkFiles(files, c, std::string(absolutePathToOutputs) + "trie\\");
     return 0;
 }
 
@@ -88,10 +87,6 @@ void checkFiles(const std::vector<std::string> &files, checker *const checker, c
                 tempoWord = checker::checkWord(tempoWord);
                 if (!tempoWord.empty()) {
                     checkedWords++;
-                    if (tempoWord == "they'll") {
-                        bool is = checker->check(tempoWord);
-                        int h = 5;
-                    }
                     if (!checker->check(tempoWord)) {
                         wrongWords++;
                         of << tempoWord << '\n';

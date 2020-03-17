@@ -6,10 +6,6 @@
 #include <algorithm>
 #include "checker.h"
 
-//void checker::add(std::string s) {
-//    std::cout<<"add func"<<std::endl;
-//}
-
 std::string checker::checkWord(std::string &word) {
     // convert string to lower case
     std::for_each(word.begin(), word.end(), [](char &c) {

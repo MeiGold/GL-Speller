@@ -14,9 +14,9 @@ public:
     T value;
     ChainNode<T> *next;
 
-    ChainNode() : value(nullptr), next(nullptr) {};
+    ChainNode() : next(nullptr) {};
 
-    ChainNode(T val) : value(val), next(nullptr) {};
+    ChainNode(ChainNode<T> *next) : next(nullptr) {};
 
     ChainNode(T val, ChainNode<T> *next) : value(val), next(next) {};
 };
