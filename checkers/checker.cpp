@@ -7,6 +7,9 @@
 #include "checker.h"
 
 std::string checker::checkWord(std::string &word) {
+    //it allows all words like [(,', "]a-z[',', '.', !, ?, ), ;, :, ", ']
+    //not any combination of symbols awae2131`21aw will be a valid word
+
     // convert string to lower case
     std::for_each(word.begin(), word.end(), [](char &c) {
         c = ::tolower(c);

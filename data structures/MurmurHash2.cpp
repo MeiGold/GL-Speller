@@ -3,7 +3,7 @@
 //
 
 #include "MurmurHash2.h"
-
+#include <cmath>
 
 namespace {
     int chainsDivider = 5;
@@ -11,11 +11,8 @@ namespace {
 
 template<class T>
 MurmurHash2<T>::MurmurHash2(int elementsCount) {
-    numberOfChains = elementsCount / chainsDivider; // optimal number of chains
-    chains = new ChainNode<T> *[numberOfChains];
-    for (int i = 0; i < numberOfChains; ++i) {
-        chains[i] = new ChainNode<T>(nullptr);
-    }
+    numberOfChains = std::ceil((float) elementsCount / (float) chainsDivider); // optimal number of chains
+    chains = new ChainNode<T> *[numberOfChains]();
 }
 
 template<class T>

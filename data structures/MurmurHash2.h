@@ -16,7 +16,7 @@ public:
 
     ChainNode() : next(nullptr) {};
 
-    ChainNode(ChainNode<T> *next) : next(nullptr) {};
+    ChainNode(ChainNode<T> *next) : next(next) {};
 
     ChainNode(T val, ChainNode<T> *next) : value(val), next(next) {};
 };

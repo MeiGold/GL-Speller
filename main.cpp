@@ -21,17 +21,22 @@ namespace {
     const char *absolutePathToTexts = "../texts/";
 }
 
-void checkFiles(const std::vector<std::string> &files, checker *checker, const std::string &output);
+std::vector<std::vector<std::string>> readFiles(const std::vector<std::string> &filePaths);
+
+void checkFiles(const std::vector<std::string> &fileNames, const std::vector<std::vector<std::string>> &files,
+                checker *checker, const std::string& output);
 
 int main() {
+    std::cout << "------------------------Speller------------------------" << std::endl;
     std::vector<std::string> files;
     DIR *dir;
     struct dirent *ent;
     if ((dir = opendir(absolutePathToTexts)) != nullptr) {
         /* print all the files and directories within directory */
         while ((ent = readdir(dir)) != nullptr) {
-            if (strncmp(ent->d_name, ".", 2) != 0 && strncmp(ent->d_name, "..", 3) != 0)
+            if (strncmp(ent->d_name, ".", 2) != 0 && strncmp(ent->d_name, "..", 3) != 0) {
                 files.emplace_back(ent->d_name);
+            }
         }
         closedir(dir);
     } else {
@@ -39,44 +44,31 @@ int main() {
         perror("");
         return EXIT_FAILURE;
     }
-    std::cout << "------------------------Speller------------------------" << std::endl;
+    std::vector<std::vector<std::string>> filesContainer = readFiles(files);
 
     checker *c;
     c = new vectorChecker();
-    std::cout << "stdvector ";
-    checkFiles(files, c, std::string(absolutePathToOutputs) + "stdvector\\");
+    checkFiles(files, filesContainer, c, "stdvector");
 
     c = new binaryTreeChecker();
-    std::cout << "BST ";
-    checkFiles(files, c, std::string(absolutePathToOutputs) + "BST\\");
+    checkFiles(files, filesContainer, c, "BST");
 
-    c = new hashTableChecker(2000000);
-    std::cout << "hashTable ";
-    checkFiles(files, c, std::string(absolutePathToOutputs) + "hashTable\\");
+    c = new hashTableChecker(1947827);//it can be any approximate size
+    checkFiles(files, filesContainer, c, "hashTable");
 
     c = new unorderedMapChecker();
-    std::cout << "unorderedHashMap ";
-    checkFiles(files, c, std::string(absolutePathToOutputs) + "unorderedHashMap\\");
+    checkFiles(files, filesContainer, c, "unorderedHashMap");
 
     c = new trieChecker();
-    std::cout << "trie ";
-    checkFiles(files, c, std::string(absolutePathToOutputs) + "trie\\");
+    checkFiles(files, filesContainer, c, "trie");
     return 0;
 }
 
-void checkFiles(const std::vector<std::string> &files, checker *const checker, const std::string &output) {
-    auto start = std::chrono::steady_clock::now();
-    checker->createDictionary(dictionaryPath);
-    auto end = std::chrono::steady_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end - start;
-    std::cout
-            << std::chrono::duration_cast<std::chrono::milliseconds>(elapsed_seconds).count() << " ";
-    auto startCheck = std::chrono::steady_clock::now();
-    int checkedWords = 0;
-    int wrongWords = 0;
-    for (const auto &file : files) {
+std::vector<std::vector<std::string>> readFiles(const std::vector<std::string> &filePaths) {
+    std::vector<std::vector<std::string>> files;
+    for (const auto &file : filePaths) {
+        std::vector<std::string> tempoFile;
         std::ifstream in(absolutePathToTexts + file);
-        std::ofstream of(output + file);
         if (!in.is_open()) {
             std::cout << "Failed to open file: !" << absolutePathToTexts + file << std::endl;
         } else {
@@ -86,12 +78,34 @@ void checkFiles(const std::vector<std::string> &files, checker *const checker, c
             while (buffer >> tempoWord) {
                 tempoWord = checker::checkWord(tempoWord);
                 if (!tempoWord.empty()) {
-                    checkedWords++;
-                    if (!checker->check(tempoWord)) {
-                        wrongWords++;
-                        of << tempoWord << '\n';
-                    }
+                    tempoFile.emplace_back(tempoWord);
                 }
+            }
+        }
+        files.emplace_back(tempoFile);
+    }
+    return files;
+}
+
+void checkFiles(const std::vector<std::string> &fileNames, const std::vector<std::vector<std::string>> &files,
+                checker *const checker, const std::string& output) {
+    std::cout << output << " ";
+    auto start = std::chrono::steady_clock::now();
+    checker->createDictionary(dictionaryPath);
+    auto end = std::chrono::steady_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::cout
+            << std::chrono::duration_cast<std::chrono::milliseconds>(elapsed_seconds).count() << " ";
+    auto startCheck = std::chrono::steady_clock::now();
+    int checkedWords = 0;
+    int wrongWords = 0;
+    for (int i = 0; i < files.size(); ++i) {
+        std::ofstream of(output + fileNames[i]);
+        for (const auto &word:files[i]) {
+            checkedWords++;
+            if (!checker->check(word)) {
+                wrongWords++;
+                of << word << '\n';
             }
         }
     }
@@ -100,5 +114,7 @@ void checkFiles(const std::vector<std::string> &files, checker *const checker, c
     std::cout
             << std::chrono::duration_cast<std::chrono::milliseconds>(elapsed_seconds).count() << " " << checkedWords
             << " " << wrongWords << std::endl;
+
+
 }
 

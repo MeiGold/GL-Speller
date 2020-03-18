@@ -9,7 +9,6 @@
 #include <string>
 
 class checker {
-private:
 public:
     virtual void add(std::string element) = 0;
 
@@ -19,7 +18,6 @@ public:
 
     static std::string checkWord(std::string &word);
 
-public:
 };
 
 

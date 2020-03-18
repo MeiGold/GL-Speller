@@ -15,9 +15,9 @@ private:
 public:
     bool isComplete;
 
-    class TrieNode *children[alphabet]{};
+    TrieNode *children[alphabet];
 
-    TrieNode() : isComplete(false) {};
+    TrieNode() : isComplete(false),children() {};
 };
 
 class trie {
