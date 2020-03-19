@@ -24,7 +24,7 @@ namespace {
 std::vector<std::vector<std::string>> readFiles(const std::vector<std::string> &filePaths);
 
 void checkFiles(const std::vector<std::string> &fileNames, const std::vector<std::vector<std::string>> &files,
-                checker *checker, const std::string& output);
+                checker *checker, const std::string &output);
 
 int main() {
     std::cout << "------------------------Speller------------------------" << std::endl;
@@ -88,7 +88,7 @@ std::vector<std::vector<std::string>> readFiles(const std::vector<std::string> &
 }
 
 void checkFiles(const std::vector<std::string> &fileNames, const std::vector<std::vector<std::string>> &files,
-                checker *const checker, const std::string& output) {
+                checker *const checker, const std::string &output) {
     std::cout << output << " ";
     auto start = std::chrono::steady_clock::now();
     checker->createDictionary(dictionaryPath);
@@ -100,8 +100,11 @@ void checkFiles(const std::vector<std::string> &fileNames, const std::vector<std
     int checkedWords = 0;
     int wrongWords = 0;
     for (int i = 0; i < files.size(); ++i) {
-        std::ofstream of(output + fileNames[i]);
+        std::ofstream of(absolutePathToOutputs + output + "/" + fileNames[i]);
         for (const auto &word:files[i]) {
+            if (word == "which") {
+                int a = 5;
+            }
             checkedWords++;
             if (!checker->check(word)) {
                 wrongWords++;
@@ -114,7 +117,5 @@ void checkFiles(const std::vector<std::string> &fileNames, const std::vector<std
     std::cout
             << std::chrono::duration_cast<std::chrono::milliseconds>(elapsed_seconds).count() << " " << checkedWords
             << " " << wrongWords << std::endl;
-
-
 }
 

@@ -45,6 +45,5 @@ void binaryTreeChecker::createDictionary(std::string filename) {
         for (const auto &word : words) {
             container.add(word);
         }
-
     }
 }
