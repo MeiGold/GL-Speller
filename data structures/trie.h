@@ -24,7 +24,7 @@ class trie {
 private:
     TrieNode *root;
 
-    static void printNode(const TrieNode *node, std::vector<char> *tempoWord = {});
+    static void printNode(const TrieNode *node, std::vector<char> tempoWord = {});
 
 public:
     trie();

@@ -2,9 +2,13 @@
 // Created by golde on 3/13/2020.
 //
 
+#include "trie.h"
 #include <algorithm>
 #include <iostream>
-#include "trie.h"
+
+namespace {
+    const int trieNodeSize = 26;
+}
 
 TrieNode *trie::getRoot() {
     return root;
@@ -15,10 +19,10 @@ void trie::insert(const std::string &element) {
     for (const char &e : element
             ) {
         if (e == '\'') {
-            if (current->children[26] == nullptr) {
-                current->children[26] = new TrieNode();
+            if (current->children[trieNodeSize] == nullptr) {
+                current->children[trieNodeSize] = new TrieNode();
             }
-            current = current->children[26];
+            current = current->children[trieNodeSize];
             continue;
         }
         if (current->children[e - 'a'] == nullptr) {
@@ -35,12 +39,13 @@ bool trie::find(const std::string &element) {
     TrieNode *current = root;
     for (const char &e : element) {
         if (e == '\'') {
-            if (current->children[26]) {
-                current = current->children[26];
+            if (current->children[trieNodeSize] != nullptr) {
+                current = current->children[trieNodeSize];
                 continue;
-            } else return false;
+            }
+            return false;
         }
-        if (current->children[e - 'a']) {
+        if (current->children[e - 'a']!= nullptr) {
             current = current->children[e - 'a'];
         } else return false;
     }
@@ -51,28 +56,28 @@ void trie::print() {
     printNode(root);
 }
 
-void trie::printNode(const TrieNode *node, std::vector<char> *tempoWord) {
-    if (tempoWord == nullptr)tempoWord = new std::vector<char>;
+void trie::printNode(const TrieNode *node, std::vector<char> tempoWord) {
+    if (tempoWord.empty())tempoWord = std::vector<char>{};
     if (node == nullptr)return;
     if (node->isComplete) {
-        for (const char &i: *tempoWord) {
+        for (const char &i: tempoWord) {
             std::cout << i;
         }
         std::cout << '\n';
     }
     for (int i = 0; i < 27; ++i) {
-        if (i == 26) {
-            if (node->children[26]) {
-                tempoWord->emplace_back('\'');
-                printNode(node->children[26], tempoWord);
-                tempoWord->pop_back();
+        if (i == trieNodeSize) {
+            if (node->children[trieNodeSize]) {
+                tempoWord.emplace_back('\'');
+                printNode(node->children[trieNodeSize], tempoWord);
+                tempoWord.pop_back();
                 continue;
             }
         }
         if (node->children[i]) {
-            tempoWord->emplace_back((char) i + 'a');
+            tempoWord.emplace_back((char) i + 'a');
             printNode(node->children[i], tempoWord);
-            tempoWord->pop_back();
+            tempoWord.pop_back();
         }
     }
 }

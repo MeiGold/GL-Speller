@@ -2,9 +2,8 @@
 // Created by golde on 3/12/2020.
 //
 
-#include <iostream>
-#include <algorithm>
 #include "checker.h"
+#include <algorithm>
 
 std::string checker::checkWord(std::string &word) {
     //it allows all words like [(,', "]a-z[',', '.', !, ?, ), ;, :, ", ']

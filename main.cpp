@@ -19,6 +19,7 @@ namespace {
     const char *dictionaryPath = "../dictionary.txt";
     const char *absolutePathToOutputs = "../outputs/";
     const char *absolutePathToTexts = "../texts/";
+    //
 }
 
 std::vector<std::vector<std::string>> readFiles(const std::vector<std::string> &filePaths);
