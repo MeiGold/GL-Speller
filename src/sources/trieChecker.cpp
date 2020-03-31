@@ -5,18 +5,17 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include "unorderedMapChecker.h"
+#include "../../include/trieChecker.h"
 
-void unorderedMapChecker::add(std::string element) {
-    container[element] = element;
+void trieChecker::add(std::string element) {
+    container.insert(element);
 }
 
-bool unorderedMapChecker::check(std::string element) {
-    auto iterator = container.find(element);
-    return iterator != container.end();
+bool trieChecker::check(std::string element) {
+    return container.find(element);
 }
 
-void unorderedMapChecker::createDictionary(std::string filename) {
+void trieChecker::createDictionary(std::string filename) {
     std::ifstream in(filename);
     if (!in.is_open()) {
         std::cout << "Failed to open dictionary!" << std::endl;
@@ -26,8 +25,10 @@ void unorderedMapChecker::createDictionary(std::string filename) {
         std::string tempoWord;
         while (buffer >> tempoWord) {
             tempoWord = checkWord(tempoWord);
-            if (!tempoWord.empty())container[tempoWord] = tempoWord;
+            if (tempoWord == "they'll") {
+                container.insert(tempoWord);
+            }
+            if (!tempoWord.empty())container.insert(tempoWord);
         }
-
     }
 }

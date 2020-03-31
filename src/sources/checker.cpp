@@ -2,7 +2,7 @@
 // Created by golde on 3/12/2020.
 //
 
-#include "checker.h"
+#include "../headers/checker.h"
 #include <algorithm>
 
 std::string checker::checkWord(std::string &word) {

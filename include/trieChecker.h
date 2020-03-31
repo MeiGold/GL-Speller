@@ -6,7 +6,7 @@
 #define SPELLER_TRIECHECKER_H
 
 
-#include "checker.h"
+#include "../src/headers/checker.h"
 #include "trie.h"
 
 class trieChecker : public checker {

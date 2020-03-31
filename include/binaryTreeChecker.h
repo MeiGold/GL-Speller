@@ -6,7 +6,7 @@
 #define SPELLER_BINARYTREECHECKER_H
 
 
-#include "checker.h"
+#include "../src/headers/checker.h"
 #include "BST.h"
 #include <string>
 

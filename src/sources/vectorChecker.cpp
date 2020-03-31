@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <chrono>
-#include "vectorChecker.h"
+#include "../../include/vectorChecker.h"
 
 void vectorChecker::add(std::string element) {
     container.emplace_back(element);

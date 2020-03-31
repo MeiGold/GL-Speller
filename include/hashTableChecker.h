@@ -5,7 +5,7 @@
 #define SPELLER_HASHTABLECHECKER_H
 
 
-#include "checker.h"
+#include "../src/headers/checker.h"
 #include "MurmurHash2.h"
 
 class hashTableChecker : public checker {

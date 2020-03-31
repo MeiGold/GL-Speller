@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include "hashTableChecker.h"
+#include "../../include/hashTableChecker.h"
 
 hashTableChecker::hashTableChecker(int size) {
     container = new MurmurHash2<std::string>(size);

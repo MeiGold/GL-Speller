@@ -6,7 +6,7 @@
 #define SPELLER_VECTORCHECKER_H
 
 
-#include "checker.h"
+#include "../src/headers/checker.h"
 #include <vector>
 
 

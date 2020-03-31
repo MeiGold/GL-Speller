@@ -7,12 +7,12 @@
 #include <chrono>
 #include <cstring>
 
-#include <checker.h>
-#include <vectorChecker.h>
-#include <binaryTreeChecker.h>
-#include <hashTableChecker.h>
-#include <unorderedMapChecker.h>
-#include <trieChecker.h>
+#include "../headers/checker.h"
+#include "../../include/vectorChecker.h"
+#include "../../include/binaryTreeChecker.h"
+#include "../../include/hashTableChecker.h"
+#include "../../include/unorderedMapChecker.h"
+#include "../../include/trieChecker.h"
 
 namespace {
     // variables for dictionary, input and output

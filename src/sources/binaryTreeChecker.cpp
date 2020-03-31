@@ -7,7 +7,7 @@
 #include <random>
 #include <algorithm>
 #include <chrono>
-#include "binaryTreeChecker.h"
+#include "../../include/binaryTreeChecker.h"
 
 
 void binaryTreeChecker::add(std::string element) {

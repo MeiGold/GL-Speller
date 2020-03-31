@@ -9,7 +9,7 @@
 #include <unordered_map>
 #include <string>
 #include <functional>
-#include "checker.h"
+#include "../src/headers/checker.h"
 
 class unorderedMapChecker : public checker {
 private:
