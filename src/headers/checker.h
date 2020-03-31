@@ -14,7 +14,7 @@ public:
 
     virtual bool check(std::string element) = 0;
 
-    virtual void createDictionary(std::string filename) = 0;
+    virtual void createDictionary(std::vector<std::string> words) = 0;
 
     static std::string checkWord(std::string &word);
 

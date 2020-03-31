@@ -19,17 +19,8 @@ bool hashTableChecker::check(std::string element) {
     return container->checkElement(element, element.length());
 }
 
-void hashTableChecker::createDictionary(std::string filename) {
-    std::ifstream in(filename);
-    if (!in.is_open()) {
-        std::cout << "Failed to open dictionary!" << std::endl;
-    } else {
-        std::stringstream buffer;
-        buffer << in.rdbuf();
-        std::string tempoWord;
-        while (buffer >> tempoWord) {
-            tempoWord = checkWord(tempoWord);
-            if (!tempoWord.empty())container->insertElement(tempoWord, tempoWord.length());
-        }
+void hashTableChecker::createDictionary(std::vector<std::string> words) {
+    for (const auto &word:words) {
+        container->insertElement(word, word.length());
     }
 }

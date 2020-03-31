@@ -22,7 +22,7 @@ public:
 
     bool check(std::string element) override;
 
-    void createDictionary(std::string filename) override;
+    void createDictionary(std::vector<std::string> words) override;
 
 };
 

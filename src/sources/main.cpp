@@ -7,12 +7,11 @@
 #include <chrono>
 #include <cstring>
 
-#include "../headers/checker.h"
-#include "../../include/vectorChecker.h"
-#include "../../include/binaryTreeChecker.h"
-#include "../../include/hashTableChecker.h"
-#include "../../include/unorderedMapChecker.h"
-#include "../../include/trieChecker.h"
+#include "vectorChecker.h"
+#include "binaryTreeChecker.h"
+#include "hashTableChecker.h"
+#include "unorderedMapChecker.h"
+#include "trieChecker.h"
 
 namespace {
     // variables for dictionary, input and output
@@ -22,14 +21,22 @@ namespace {
     //
 }
 
-std::vector<std::vector<std::string>> readFiles(const std::vector<std::string> &filePaths);
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
+using std::vector;
 
-void checkFiles(const std::vector<std::string> &fileNames, const std::vector<std::vector<std::string>> &files,
-                checker *checker, const std::string &output);
+vector<string> loadDictionary(const char *dictionaryPath);
+
+vector<vector<string>> readFiles(const vector<string> &filePaths);
+
+void checkFiles(const vector<string> &fileNames, const vector<vector<string>> &files,
+                checker *checker, const string &output, const vector<string> &dictionary);
 
 int main() {
-    std::cout << "------------------------Speller------------------------" << std::endl;
-    std::vector<std::string> files;
+    cout << "------------------------Speller------------------------" << endl;
+    vector<string> files;
     DIR *dir;
     struct dirent *ent;
     if ((dir = opendir(absolutePathToTexts)) != nullptr) {
@@ -45,37 +52,56 @@ int main() {
         perror("");
         return EXIT_FAILURE;
     }
-    std::vector<std::vector<std::string>> filesContainer = readFiles(files);
+    vector<vector<string>> filesContainer = readFiles(
+            files);//vector of vectors containing words from given files
+    vector<string> dictionary = loadDictionary(dictionaryPath);
 
     checker *c;
     c = new vectorChecker();
-    checkFiles(files, filesContainer, c, "stdvector");
+    checkFiles(files, filesContainer, c, "stdvector", dictionary);
 
     c = new binaryTreeChecker();
-    checkFiles(files, filesContainer, c, "BST");
+    checkFiles(files, filesContainer, c, "BST", dictionary);
 
     c = new hashTableChecker(1947827);//it can be any approximate size
-    checkFiles(files, filesContainer, c, "hashTable");
+    checkFiles(files, filesContainer, c, "hashTable", dictionary);
 
     c = new unorderedMapChecker();
-    checkFiles(files, filesContainer, c, "unorderedHashMap");
+    checkFiles(files, filesContainer, c, "unorderedHashMap", dictionary);
 
     c = new trieChecker();
-    checkFiles(files, filesContainer, c, "trie");
+    checkFiles(files, filesContainer, c, "trie", dictionary);
     return 0;
 }
 
-std::vector<std::vector<std::string>> readFiles(const std::vector<std::string> &filePaths) {
-    std::vector<std::vector<std::string>> files;
+vector<string> loadDictionary(const char *dictionaryPath) {
+    vector<string> dict;
+    std::ifstream in(dictionaryPath);
+    if (!in.is_open()) {
+        cout << "Failed to open dictionary!" << endl;
+    } else {
+        std::stringstream buffer;
+        buffer << in.rdbuf();
+        string tempoWord;
+        while (buffer >> tempoWord) {
+            tempoWord = checker::checkWord(tempoWord);
+            if (!tempoWord.empty())dict.emplace_back(tempoWord);
+        }
+    }
+    return dict;
+}
+
+vector<vector<string>> readFiles(const vector<string> &filePaths) {
+    vector<vector<string>> files;
     for (const auto &file : filePaths) {
-        std::vector<std::string> tempoFile;
+        vector<string> tempoFile;
         std::ifstream in(absolutePathToTexts + file);
         if (!in.is_open()) {
-            std::cout << "Failed to open file: !" << absolutePathToTexts + file << std::endl;
+            cout << "Failed to open file: !" << absolutePathToTexts + file << endl;
         } else {
             std::stringstream buffer;
             buffer << in.rdbuf();
-            std::string tempoWord;
+            string tempoWord;
             while (buffer >> tempoWord) {
                 tempoWord = checker::checkWord(tempoWord);
                 if (!tempoWord.empty()) {
@@ -88,35 +114,40 @@ std::vector<std::vector<std::string>> readFiles(const std::vector<std::string> &
     return files;
 }
 
-void checkFiles(const std::vector<std::string> &fileNames, const std::vector<std::vector<std::string>> &files,
-                checker *const checker, const std::string &output) {
-    std::cout << output << " ";
+
+void checkFiles(const vector<string> &fileNames, const vector<vector<string>> &files,
+                checker *const checker, const string &output, const vector<string> &dictionary) {
+    cout << output << " ";
     auto start = std::chrono::steady_clock::now();
-    checker->createDictionary(dictionaryPath);
+    checker->createDictionary(dictionary);
     auto end = std::chrono::steady_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
-    std::cout
+    cout
             << std::chrono::duration_cast<std::chrono::milliseconds>(elapsed_seconds).count() << " ";
     auto startCheck = std::chrono::steady_clock::now();
     int checkedWords = 0;
     int wrongWords = 0;
-    for (int i = 0; i < files.size(); ++i) {
-        std::ofstream of(absolutePathToOutputs + output + "/" + fileNames[i]);
-        for (const auto &word:files[i]) {
-            if (word == "which") {
-                int a = 5;
-            }
+    for (const auto &file : files) {
+        for (const auto &word : file) {
             checkedWords++;
             if (!checker->check(word)) {
                 wrongWords++;
-                of << word << '\n';
             }
         }
     }
     auto endCheck = std::chrono::steady_clock::now();
+
+    for (int i = 0; i < files.size(); ++i) {
+        std::ofstream of(absolutePathToOutputs + output + "/" + fileNames[i]);
+        for (const auto &word : files[i]) {
+            if (!checker->check(word)) {
+                of << word << '\n';
+            }
+        }
+    }
     elapsed_seconds = endCheck - startCheck;
-    std::cout
+    cout
             << std::chrono::duration_cast<std::chrono::milliseconds>(elapsed_seconds).count() << " " << checkedWords
-            << " " << wrongWords << std::endl;
+            << " " << wrongWords << endl;
 }
 

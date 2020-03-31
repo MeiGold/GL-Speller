@@ -16,18 +16,8 @@ bool unorderedMapChecker::check(std::string element) {
     return iterator != container.end();
 }
 
-void unorderedMapChecker::createDictionary(std::string filename) {
-    std::ifstream in(filename);
-    if (!in.is_open()) {
-        std::cout << "Failed to open dictionary!" << std::endl;
-    } else {
-        std::stringstream buffer;
-        buffer << in.rdbuf();
-        std::string tempoWord;
-        while (buffer >> tempoWord) {
-            tempoWord = checkWord(tempoWord);
-            if (!tempoWord.empty())container[tempoWord] = tempoWord;
-        }
-
+void unorderedMapChecker::createDictionary(std::vector<std::string> words) {
+    for (const auto &word:words) {
+        container[word] = word;
     }
 }

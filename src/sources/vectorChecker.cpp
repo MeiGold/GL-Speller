@@ -28,18 +28,9 @@ bool vectorChecker::check(std::string elem) {
     return container[left] == elem;
 }
 
-void vectorChecker::createDictionary(std::string filename) {
-    std::ifstream in(filename);
-    if (!in.is_open()) {
-        std::cout << "Failed to open dictionary!" << std::endl;
-    } else {
-        std::stringstream buffer;
-        buffer << in.rdbuf();
-        std::string tempoWord;
-        while (buffer >> tempoWord) {
-            tempoWord = checkWord(tempoWord);
-            if (!tempoWord.empty())container.emplace_back(tempoWord);
-        }
+void vectorChecker::createDictionary(std::vector<std::string> words) {
+    for (const auto &word:words) {
+        container.emplace_back(word);
     }
 }
 
