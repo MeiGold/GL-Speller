@@ -6,7 +6,7 @@
 #define SPELLER_TRIECHECKER_H
 
 
-#include "../src/headers/checker.h"
+#include "checker.h"
 #include "trie.h"
 
 class trieChecker : public checker {
@@ -15,7 +15,7 @@ private:
 public:
     trieChecker() = default;
 
-    ~trieChecker() = default;
+    ~trieChecker() override = default;
 
     void add(std::string element) override;
 

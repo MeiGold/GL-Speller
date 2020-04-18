@@ -10,6 +10,8 @@
 
 class checker {
 public:
+    virtual ~checker() = default;
+
     virtual void add(std::string element) = 0;
 
     virtual bool check(std::string element) = 0;

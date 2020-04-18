@@ -6,7 +6,7 @@
 #define SPELLER_VECTORCHECKER_H
 
 
-#include "../src/headers/checker.h"
+#include "checker.h"
 #include <vector>
 
 
@@ -16,7 +16,7 @@ private:
 public:
     vectorChecker() = default;
 
-    ~vectorChecker() = default;
+    ~vectorChecker() override = default;
 
     void add(std::string element) override;
 

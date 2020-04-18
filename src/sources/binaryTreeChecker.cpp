@@ -7,7 +7,7 @@
 #include <random>
 #include <algorithm>
 #include <chrono>
-#include "../../include/binaryTreeChecker.h"
+#include "binaryTreeChecker.h"
 
 
 void binaryTreeChecker::add(std::string element) {
@@ -32,4 +32,8 @@ void binaryTreeChecker::createDictionary(std::vector<std::string> words) {
     for (const auto &word:words) {
         container.add(word);
     }
+}
+
+binaryTreeChecker::~binaryTreeChecker() {
+
 }

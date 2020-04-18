@@ -6,7 +6,7 @@
 #define SPELLER_BINARYTREECHECKER_H
 
 
-#include "../src/headers/checker.h"
+#include "checker.h"
 #include "BST.h"
 #include <string>
 
@@ -17,7 +17,7 @@ private:
 public:
     binaryTreeChecker() = default;
 
-    ~binaryTreeChecker() = default;
+    ~binaryTreeChecker() override;
 
     void add(std::string element) override;
 

@@ -59,18 +59,23 @@ int main() {
     checker *c;
     c = new vectorChecker();
     checkFiles(files, filesContainer, c, "stdvector", dictionary);
+    delete c;
 
     c = new binaryTreeChecker();
     checkFiles(files, filesContainer, c, "BST", dictionary);
+    delete c;
 
     c = new hashTableChecker(1947827);//it can be any approximate size
     checkFiles(files, filesContainer, c, "hashTable", dictionary);
+    delete c;
 
     c = new unorderedMapChecker();
     checkFiles(files, filesContainer, c, "unorderedHashMap", dictionary);
+    delete c;
 
     c = new trieChecker();
     checkFiles(files, filesContainer, c, "trie", dictionary);
+    delete c;
     return 0;
 }
 
@@ -85,7 +90,7 @@ vector<string> loadDictionary(const char *dictionaryPath) {
         string tempoWord;
         while (buffer >> tempoWord) {
             tempoWord = checker::checkWord(tempoWord);
-            if (!tempoWord.empty())dict.emplace_back(tempoWord);
+            if (!tempoWord.empty()) { dict.emplace_back(tempoWord); }
         }
     }
     return dict;

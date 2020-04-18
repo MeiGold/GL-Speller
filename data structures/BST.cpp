@@ -46,10 +46,10 @@ void BST<T>::add(T value) {
 
 template<class T>
 void BST<T>::inOrderOutput(const Node<T> *node) {
-    if (!node)return;
-    if (node->left)inOrderOutput(node->left);
+    if (!node) { return; }
+    if (node->left) { inOrderOutput(node->left); }
     std::cout << node->value << std::endl;
-    if (node->right)inOrderOutput(node->right);
+    if (node->right) { inOrderOutput(node->right); }
 }
 
 template<class T>
@@ -59,17 +59,17 @@ Node<T> *BST<T>::getRoot() const {
 
 template<class T>
 int BST<T>::treeLength(const Node<T> *const node) const {
-    if (node == nullptr)
+    if (node == nullptr) {
         return 0;
-    else {
+    } else {
         /* compute the depth of each subtree */
         int lDepth = treeLength(node->left);
         int rDepth = treeLength(node->right);
 
         /* use the larger one */
-        if (lDepth > rDepth)
+        if (lDepth > rDepth) {
             return (lDepth + 1);
-        else return (rDepth + 1);
+        } else { return (rDepth + 1); }
     }
 }
 

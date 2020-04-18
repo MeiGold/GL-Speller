@@ -9,7 +9,7 @@
 #include <unordered_map>
 #include <string>
 #include <functional>
-#include "../src/headers/checker.h"
+#include "checker.h"
 
 class unorderedMapChecker : public checker {
 private:
@@ -17,7 +17,7 @@ private:
 public:
     unorderedMapChecker() = default;
 
-    ~unorderedMapChecker() = default;
+    ~unorderedMapChecker() override = default;
 
     void add(std::string element) override;
 

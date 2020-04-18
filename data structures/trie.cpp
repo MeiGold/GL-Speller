@@ -45,7 +45,7 @@ bool trie::find(const std::string &element) {
             }
             return false;
         }
-        if (current->children[e - 'a']!= nullptr) {
+        if (current->children[e - 'a'] != nullptr) {
             current = current->children[e - 'a'];
         } else return false;
     }
@@ -57,8 +57,8 @@ void trie::print() {
 }
 
 void trie::printNode(const TrieNode *node, std::vector<char> tempoWord) {
-    if (tempoWord.empty())tempoWord = std::vector<char>{};
-    if (node == nullptr)return;
+    //if (tempoWord.empty()) { tempoWord = std::vector<char>{}; }
+    if (node == nullptr) { return; }
     if (node->isComplete) {
         for (const char &i: tempoWord) {
             std::cout << i;
@@ -87,5 +87,21 @@ trie::trie() {
 }
 
 trie::~trie() {
-    delete root;
+    erase(root);
 }
+
+void trie::erase(TrieNode *node) {
+    if (node) {
+        for (auto &child : node->children) {
+            if (child) {
+                erase(child);
+            }
+        }
+        delete node;
+
+    }
+}
+
+
+
+

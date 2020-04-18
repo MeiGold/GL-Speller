@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include "../../include/unorderedMapChecker.h"
+#include "unorderedMapChecker.h"
 
 void unorderedMapChecker::add(std::string element) {
     container[element] = element;

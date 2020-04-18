@@ -70,10 +70,12 @@ void MurmurHash2<T>::insertElement(T element, unsigned int length) {
 template<class T>
 bool MurmurHash2<T>::checkElement(T element, unsigned int length) {
     int index = hashFunction(element, length);
-    if (chains[index])
+    if (chains[index]) {
         for (ChainNode<T> *x = chains[index]; x != nullptr; x = x->next) {
-            if (x->value == element) return true;
+            if (x->value == element) { return true; }
+
         }
+    }
     return false;
 }
 
@@ -88,7 +90,7 @@ unsigned int MurmurHash2<T>::getMaxCollisions() {
                 currentChainLength++;
                 currentNode = currentNode->next;
             }
-            if (currentChainLength > max)max = currentChainLength;
+            if (currentChainLength > max) { max = currentChainLength; }
         }
 
     }

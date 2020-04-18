@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include "../../include/trieChecker.h"
+#include "trieChecker.h"
 
 void trieChecker::add(std::string element) {
     container.insert(element);

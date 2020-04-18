@@ -37,7 +37,7 @@ public:
 
     bool find(const std::string &element);
 
-    void erase(std::string element);
+    void erase(TrieNode *node);
 
     void print();
 };

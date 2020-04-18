@@ -2,7 +2,7 @@
 // Created by golde on 3/12/2020.
 //
 
-#include "../headers/checker.h"
+#include "checker.h"
 #include <algorithm>
 
 std::string checker::checkWord(std::string &word) {
@@ -26,13 +26,13 @@ std::string checker::checkWord(std::string &word) {
 
     for (int i = 0; i < word.length() - 1; ++i) {
         if (word[i] < 97 || word[i] > 122) {
-            if (word[i] == 39)continue;
+            if (word[i] == 39) { continue; }
             return "";
         }
     }
 
     if (word.length() == 1) {
-        if (word[0] < 97 || word[0] > 122)return "";
+        if (word[0] < 97 || word[0] > 122) { return ""; }
         else return word;
 
     }
@@ -52,8 +52,7 @@ std::string checker::checkWord(std::string &word) {
             word.erase(word.end() - 1);
             break;
         default:
-            if (c < 97 || c > 122)
-                return "";
+            if (c < 97 || c > 122) { return ""; }
             break;
 
     }

@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <chrono>
-#include "../../include/vectorChecker.h"
+#include "vectorChecker.h"
 
 void vectorChecker::add(std::string element) {
     container.emplace_back(element);
@@ -17,7 +17,7 @@ bool vectorChecker::check(std::string elem) {
     size_t index = 0;
     while (left != right && left < right) {
         index = (left + right) / 2;
-        if (container[index] == elem)return true;
+        if (container[index] == elem) { return true; }
         std::string tempo = container[index];
         if (container[index] > elem) {
             right = index - 1;

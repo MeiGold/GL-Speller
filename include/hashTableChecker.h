@@ -5,7 +5,7 @@
 #define SPELLER_HASHTABLECHECKER_H
 
 
-#include "../src/headers/checker.h"
+#include "checker.h"
 #include "MurmurHash2.h"
 
 class hashTableChecker : public checker {
@@ -14,7 +14,7 @@ private:
 public:
     hashTableChecker(int size);
 
-    ~hashTableChecker() = default;
+    ~hashTableChecker() override;
 
     void add(std::string element) override;
 
